@@ -1,0 +1,34 @@
+:root {
+  --sb-custom-block-color-black: #000;
+  --sb-custom-block-color-white: #fff;
+  --sb-custom-block-font-large: 1.5rem;
+  --sb-custom-block-font-regular: 1rem;
+
+  --sb-custom-block-text-color: var(--sb-custom-block-color-black);
+  --sb-custom-block-font-size: var(--sb-custom-block-font-regular);
+
+  --sb-custom-block-shadow: 0 1px 2px 1px rgba(6,10,36,.08);
+}
+
+
+.dark-text {
+  --sb-custom-block-text-color: var(--sb-custom-block-color-black);
+}
+
+.light-text {
+  --sb-custom-block-text-color: var(--sb-custom-block-color-white);
+}
+
+.align-right {
+  text-align: right;
+}
+
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}

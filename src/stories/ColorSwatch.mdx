@@ -1,0 +1,13 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorSwatches } from "../../lib/main"
+import "../assets/colors.css"
+
+# ColorSwatch
+
+`ColorSwatch` is an alterante to the `ColorPalette` block provided by Storybook that
+provides a more indepth method of you to documenting CSS Variables in your project.
+
+<ColorSwatches
+    title="Neutrals"
+    colors={{ '0': '--color-white', '10': '--color-neutral-10',  '20': '--color-neutral-20',  '30': '--color-neutral-30',  '40': '--color-neutral-40',  '50': '--color-neutral-50',  '60': '--color-neutral-60', '70': '--color-neutral-70', '80': '--color-neutral-80', '90': '--color-neutral-90', '100': '--color-black' }}
+  />

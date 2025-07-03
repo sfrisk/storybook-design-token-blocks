@@ -1,0 +1,42 @@
+{
+  "name": "storybook-design-token-blocks",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "tsc -b ./tsconfig.lib.json && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tinycolor2": "^1.6.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@storybook/addon-docs": "^9.0.15",
+    "@storybook/react-vite": "^9.0.15",
+    "@types/node": "^24.0.10",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/tinycolor2": "^1.4.6",
+    "@vitejs/plugin-react": "^4.5.2",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-storybook": "^9.0.15",
+    "globals": "^16.2.0",
+    "storybook": "^9.0.15",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vite": "^7.0.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^3.2.4",
+    "@vitest/browser": "^3.2.4",
+    "playwright": "^1.53.2",
+    "@vitest/coverage-v8": "^3.2.4"
+  }
+}
