@@ -8,6 +8,8 @@
   --sb-custom-block-font-size: var(--sb-custom-block-font-regular);
 
   --sb-custom-block-shadow: 0 1px 2px 1px rgba(6,10,36,.08);
+
+  --sb-custom-block-min-grid-width: 300px;
 }
 
 

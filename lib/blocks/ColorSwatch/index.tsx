@@ -23,7 +23,12 @@ function getGrade(bgColor: string, textColor: string, size: 'small' | 'large') {
 			size: size
 		})
 	) {
-		return '✅ AAA Pass'
+		return (
+			<span>
+				<span aria-hidden={true}>✅ </span>
+				<abbr title="WCAG Level AAA - Excellent Accessibility">AAA</abbr> Pass
+			</span>
+		)
 	}
 	if (
 		tinycolor.isReadable(bgColor, textColor, {
@@ -31,9 +36,20 @@ function getGrade(bgColor: string, textColor: string, size: 'small' | 'large') {
 			size: size
 		})
 	) {
-		return '⚠️ AA Pass'
+		return (
+			<span>
+				<span aria-hidden={true}>⚠️ </span>
+				<abbr title="WCAG Level AA - Strong Accessibility">AA</abbr> Passes
+			</span>
+		)
 	}
-	return '⛔ Fail'
+	return (
+		<span>
+			<span aria-hidden={true}>⛔ </span>
+			<span className="sr-only">Accessibility Contrast</span>
+			Fails
+		</span>
+	)
 }
 
 function getGrades(bgColor: string, textColor: string, title: string) {
@@ -63,60 +79,104 @@ export const ColorSwatch: React.FC<ColorSwatchProps> = ({ title, cssVar }) => {
 			className={`color-swatch ${useLight ? 'light-text' : 'dark-text'}`}
 			style={{ background: colorValue }}
 		>
-			<ul
+			<div
 				role="table"
-				className="sb-unstyled color-swatch__table"
+				className="color-swatch__table sb-unstyled"
+				aria-label={`${title}: Variable Documentation`}
 			>
-				<li
+				<div
 					role="row"
-					className="color-swatch__row sb_unstyled"
+					className="color-swatch__row"
 				>
-					<div className="color-swatch__header">{title}</div>
-					<div className="color-swatch__header">
+					<div
+						className="color-swatch__header"
+						role="rowheader"
+					>
+						<span className="sr-only">Color Name:</span>
+						{title}
+					</div>
+					<div
+						className="color-swatch__header"
+						role="cell"
+					>
+						<span className="sr-only">Color Value:</span>
 						{colorValue || 'Not found'}
 					</div>
-				</li>
-				<li
+				</div>
+				<div
 					role="row"
 					className="color-swatch__row"
 				>
-					var({cssVar})
-				</li>
-				<li
+					<span
+						className="sr-only"
+						role="rowheader"
+					>
+						CSS Variable Name:
+					</span>
+
+					<span role="cell">var({cssVar})</span>
+				</div>
+			</div>
+			<div
+				role="table"
+				className="color-swatch__table sb-unstyled"
+				aria-label={`${title}: Accessibility Documentation`}
+			>
+				<div
 					role="row"
 					className="color-swatch__row"
 				>
-					<div className="color-swatch__title">Text Size</div>
-					<div className="color-swatch__large-text">
-						<span className="sr-only">Large Text</span>Aa
+					<div
+						className="color-swatch__title"
+						role="rowheader"
+					>
+						Text Size
 					</div>
-					<div className="color-swatch__small-text">
-						<span className="sr-only">Small Text</span>Aa
+					<div
+						className="color-swatch__large-text"
+						role="columnheader"
+					>
+						<span className="sr-only">Large Text</span>
+						<span aria-hidden={true}>Aa</span>
 					</div>
-				</li>
+					<div
+						className="color-swatch__small-text"
+						role="columnheader"
+					>
+						<span className="sr-only">Small Text</span>
+						<span aria-hidden={true}>Aa</span>
+					</div>
+				</div>
 				{contrasts.map((item) => (
-					<li
+					<div
 						role="row"
 						className="color-swatch__row"
 					>
-						<div className="light-text color-swatch__title">
+						<div
+							className="light-text color-swatch__title"
+							role="rowheader"
+						>
 							{item.title} ({item.readability})
 						</div>
 						<div>
-							<span className="color-swatch__badge">
-								<span className="sr-only">Large Text</span>
+							<span
+								className="color-swatch__badge"
+								role="cell"
+							>
 								{item.large}
 							</span>
 						</div>
 						<div>
-							<span className="color-swatch__badge">
-								<span className="sr-only">Small Text</span>
+							<span
+								className="color-swatch__badge"
+								role="cell"
+							>
 								{item.small}
 							</span>
 						</div>
-					</li>
+					</div>
 				))}
-			</ul>
+			</div>
 		</div>
 	)
 }
