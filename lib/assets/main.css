@@ -3,13 +3,16 @@
   --sb-custom-block-color-white: #fff;
   --sb-custom-block-font-large: 1.5rem;
   --sb-custom-block-font-regular: 1rem;
+  --sb-custom-block-font-small: .75rem;
 
   --sb-custom-block-text-color: var(--sb-custom-block-color-black);
   --sb-custom-block-font-size: var(--sb-custom-block-font-regular);
 
   --sb-custom-block-shadow: 0 1px 2px 1px rgba(6,10,36,.08);
 
-  --sb-custom-block-min-grid-width: 300px;
+  --sb-custom-block-min-grid-width: 320px;
+  --sb-custom-block-min-grid-width-condensed: 150px;
+
 }
 
 

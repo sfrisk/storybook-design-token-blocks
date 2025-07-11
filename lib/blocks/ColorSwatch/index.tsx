@@ -1,6 +1,8 @@
 import React from 'react'
 import tinycolor from 'tinycolor2'
 import './color-swatch.css'
+import '../Toggle'
+import { CBToggle } from '../Toggle'
 
 const BLACK = '#000000'
 const WHITE = '#ffffff'
@@ -8,6 +10,7 @@ const WHITE = '#ffffff'
 interface ColorSwatchProps {
 	title: string
 	cssVar: string
+	condensed: boolean
 }
 
 function getComputedColorValue(variableName: string) {
@@ -26,7 +29,8 @@ function getGrade(bgColor: string, textColor: string, size: 'small' | 'large') {
 		return (
 			<span>
 				<span aria-hidden={true}>✅ </span>
-				<abbr title="WCAG Level AAA - Excellent Accessibility">AAA</abbr> Pass
+				<span className="sr-only">Accessibility Contrast</span>
+				<abbr title="WCAG Level AAA - Excellent Accessibility">AAA</abbr> Passes
 			</span>
 		)
 	}
@@ -39,6 +43,7 @@ function getGrade(bgColor: string, textColor: string, size: 'small' | 'large') {
 		return (
 			<span>
 				<span aria-hidden={true}>⚠️ </span>
+				<span className="sr-only">Accessibility Contrast</span>
 				<abbr title="WCAG Level AA - Strong Accessibility">AA</abbr> Passes
 			</span>
 		)
@@ -61,7 +66,11 @@ function getGrades(bgColor: string, textColor: string, title: string) {
 	}
 }
 
-export const ColorSwatch: React.FC<ColorSwatchProps> = ({ title, cssVar }) => {
+export const ColorSwatch: React.FC<ColorSwatchProps> = ({
+	title,
+	cssVar,
+	condensed = false
+}) => {
 	const colorValue = getComputedColorValue(cssVar)
 
 	const contrasts = [
@@ -76,107 +85,84 @@ export const ColorSwatch: React.FC<ColorSwatchProps> = ({ title, cssVar }) => {
 
 	return (
 		<div
-			className={`color-swatch ${useLight ? 'light-text' : 'dark-text'}`}
+			className={`sb-unstyled color-swatch ${
+				useLight ? 'light-text' : 'dark-text'
+			} ${condensed ? 'color-swatch--condensed' : ''}`}
 			style={{ background: colorValue }}
 		>
-			<div
-				role="table"
-				className="color-swatch__table sb-unstyled"
-				aria-label={`${title}: Variable Documentation`}
-			>
-				<div
-					role="row"
-					className="color-swatch__row"
-				>
-					<div
-						className="color-swatch__header"
-						role="rowheader"
-					>
-						<span className="sr-only">Color Name:</span>
-						{title}
-					</div>
-					<div
-						className="color-swatch__header"
-						role="cell"
-					>
-						<span className="sr-only">Color Value:</span>
-						{colorValue || 'Not found'}
-					</div>
-				</div>
-				<div
-					role="row"
-					className="color-swatch__row"
-				>
-					<span
-						className="sr-only"
-						role="rowheader"
-					>
-						CSS Variable Name:
-					</span>
+			<h3 className="color-swatch__header">{title}</h3>
+			<div className="color-swatch__subheader">
+				<span className="sr-only">CSS Variable Name:</span>
+				<em>var({cssVar}): </em>
+				<span className="sr-only">Color Value:</span>
 
-					<span role="cell">var({cssVar})</span>
-				</div>
+				<strong>{colorValue || 'Not found'}</strong>
 			</div>
-			<div
-				role="table"
-				className="color-swatch__table sb-unstyled"
-				aria-label={`${title}: Accessibility Documentation`}
-			>
+
+			{condensed ? (
+				''
+			) : (
 				<div
-					role="row"
-					className="color-swatch__row"
+					role="table"
+					className="color-swatch__table"
+					aria-label={`${title}: Accessibility Documentation`}
 				>
-					<div
-						className="color-swatch__title"
-						role="rowheader"
-					>
-						Text Size
-					</div>
-					<div
-						className="color-swatch__large-text"
-						role="columnheader"
-					>
-						<span className="sr-only">Large Text</span>
-						<span aria-hidden={true}>Aa</span>
-					</div>
-					<div
-						className="color-swatch__small-text"
-						role="columnheader"
-					>
-						<span className="sr-only">Small Text</span>
-						<span aria-hidden={true}>Aa</span>
-					</div>
-				</div>
-				{contrasts.map((item) => (
 					<div
 						role="row"
 						className="color-swatch__row"
 					>
 						<div
-							className="light-text color-swatch__title"
+							className="color-swatch__title"
 							role="rowheader"
 						>
-							{item.title} ({item.readability})
+							Text Size
 						</div>
-						<div>
-							<span
-								className="color-swatch__badge"
-								role="cell"
-							>
-								{item.large}
-							</span>
+						<div
+							className="color-swatch__large-text"
+							role="columnheader"
+						>
+							<span className="sr-only">Large Text</span>
+							<span aria-hidden={true}>Aa</span>
 						</div>
-						<div>
-							<span
-								className="color-swatch__badge"
-								role="cell"
-							>
-								{item.small}
-							</span>
+						<div
+							className="color-swatch__small-text"
+							role="columnheader"
+						>
+							<span className="sr-only">Small Text</span>
+							<span aria-hidden={true}>Aa</span>
 						</div>
 					</div>
-				))}
-			</div>
+					{contrasts.map((item) => (
+						<div
+							role="row"
+							className="color-swatch__row"
+						>
+							<div
+								className="light-text color-swatch__title"
+								role="rowheader"
+							>
+								{item.title} ({item.readability})
+							</div>
+							<div>
+								<span
+									className="color-swatch__badge"
+									role="cell"
+								>
+									{item.large}
+								</span>
+							</div>
+							<div>
+								<span
+									className="color-swatch__badge"
+									role="cell"
+								>
+									{item.small}
+								</span>
+							</div>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	)
 }
@@ -184,18 +170,29 @@ export const ColorSwatch: React.FC<ColorSwatchProps> = ({ title, cssVar }) => {
 interface ColorSwatchesProps {
 	title: string
 	colors?: { [key: string]: string }
+	condensed?: boolean
 	children?: React.ReactNode
 }
 
 export const ColorSwatches: React.FC<ColorSwatchesProps> = ({
 	children,
 	colors,
+	condensed = false,
 	title
 }) => {
+	const [isVerboseChecked, setIsVerboseChecked] = React.useState(!condensed)
+
+	const checkboxId = `${title.replace(/\s+/g, '')}-isCondensed`
+
+	const checkHandler = () => {
+		setIsVerboseChecked(!isVerboseChecked)
+	}
+
 	const swatches = colors
 		? Object.keys(colors).map((key) => {
 				return (
 					<ColorSwatch
+						condensed={!isVerboseChecked}
 						title={`${title} ${key}`}
 						cssVar={colors[key]}
 						key={key}
@@ -205,9 +202,25 @@ export const ColorSwatches: React.FC<ColorSwatchesProps> = ({
 		: null
 	return (
 		<div>
-			<h2>{title}</h2>
+			<div className="color-swatches__header">
+				<h2>{title}</h2>
+				<CBToggle
+					label="Show Verbose"
+					name={checkboxId}
+					isChecked={isVerboseChecked}
+					checkHandler={checkHandler}
+				/>
+			</div>
+
 			{children}
-			<div className="color-swatches">{swatches}</div>
+
+			<div
+				className={`color-swatches ${
+					isVerboseChecked ? '' : 'color-swatches--condensed'
+				}`}
+			>
+				{swatches}
+			</div>
 		</div>
 	)
 }

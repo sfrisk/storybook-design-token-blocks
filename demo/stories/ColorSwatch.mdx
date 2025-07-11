@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/addon-docs/blocks";
+import { Meta, ColorPalette, ColorItem  } from "@storybook/addon-docs/blocks";
 import { ColorSwatches } from "../../lib/main"
 import "../assets/colors.css"
 
@@ -9,5 +9,60 @@ provides a more in-depth method for documenting CSS Variables in a project.
 
 <ColorSwatches
     title="Neutrals"
+    condensed={true}
     colors={{ '0': '--color-white', '10': '--color-neutral-10',  '20': '--color-neutral-20',  '30': '--color-neutral-30',  '40': '--color-neutral-40',  '50': '--color-neutral-50',  '60': '--color-neutral-60', '70': '--color-neutral-70', '80': '--color-neutral-80', '90': '--color-neutral-90', '100': '--color-black' }}
+>
+An optional blurb describing the palette
+</ColorSwatches>
+
+
+``` jsx
+<ColorSwatches
+  title="Neutrals"
+  colors={{ '0': '--color-white', '10': '--color-neutral-10',  '20': '--color-neutral-20',  '30': '--color-neutral-30',  '40': '--color-neutral-40',  '50': '--color-neutral-50',  '60': '--color-neutral-60', '70': '--color-neutral-70', '80': '--color-neutral-80', '90': '--color-neutral-90', '100': '--color-black' }}
+>
+An optional blurb describing the palette
+</ColorSwatches>
+
+
+```
+
+<ColorPalette>
+  <ColorItem
+    title="theme.color.greyscale"
+    subtitle="Some of the greys"
+    colors={{ White: '#FFFFFF', Alabaster: '#F8F8F8', Concrete: '#F3F3F3' }}
   />
+  <ColorItem 
+    title="theme.color.primary" 
+    subtitle="Coral" 
+    colors={{ WildWatermelon: '#FF4785' }} 
+  />
+  <ColorItem 
+    title="theme.color.secondary" 
+    subtitle="Ocean" 
+    colors={{ DodgerBlue: '#1EA7FD' }} 
+  />
+  <ColorItem
+    title="theme.color.positive"
+    subtitle="Green"
+    colors={{
+      Apple: 'rgba(102,191,60,1)',
+      Apple80: 'rgba(102,191,60,.8)',
+      Apple60: 'rgba(102,191,60,.6)',
+      Apple30: 'rgba(102,191,60,.3)',
+    }}
+  />
+  <ColorItem
+    title="gradient"
+    subtitle="Grayscale"
+    colors={{
+      Gradient: 'linear-gradient(to right,white,black)',
+    }}
+  />
+  <ColorItem
+    title="gradient"
+    subtitle="Grayscale"
+    colors={['linear-gradient(65deg,white,black)']}
+  />
+</ColorPalette>
